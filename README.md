@@ -25,8 +25,8 @@ Usage of aws-session-go:
 
 ### Examples
 ```
-Usage: go run main.go -mfa-token <mfa-token> -profile <profile> -duration <duration> -config-file <path/to/credentials/file>
-Example: go run main.go -mfa-token 123456 -profile default -duration 3600 -config-file /path/to/credentials/file
+Usage: go run main.go -mfa-token <mfa-token> -profile <profile> -duration <duration> -creds-file <path/to/credentials/file>
+Example: go run main.go -mfa-token 123456 -profile default -duration 3600 -creds-file /path/to/credentials/file
 ```
 
 #### *Installation*
