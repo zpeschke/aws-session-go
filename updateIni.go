@@ -6,7 +6,7 @@ import (
 	"os/user"
 )
 
-func updateConfig(credFile string, profile string, accessKey string, secretKey string, sessionToken string) {
+func updateConfig(credFile, profile, accessKey, secretKey, sessionToken, expiration string) {
 	if credFile == "" {
 		usr, err := user.Current()
 		if err != nil {
@@ -21,16 +21,14 @@ func updateConfig(credFile string, profile string, accessKey string, secretKey s
 		return
 	}
 
-	if cfg.HasSection(profile) {
-		cfg.Section(profile).Key("aws_access_key_id").SetValue(accessKey)
-		cfg.Section(profile).Key("aws_secret_access_key").SetValue(secretKey)
-		cfg.Section(profile).Key("aws_session_token").SetValue(sessionToken)
-	} else {
+	if !cfg.HasSection(profile) {
 		cfg.NewSection(profile)
-		cfg.Section(profile).Key("aws_access_key_id").SetValue(accessKey)
-		cfg.Section(profile).Key("aws_secret_access_key").SetValue(secretKey)
-		cfg.Section(profile).Key("aws_session_token").SetValue(sessionToken)
 	}
+
+	cfg.Section(profile).Key("aws_access_key_id").SetValue(accessKey)
+	cfg.Section(profile).Key("aws_secret_access_key").SetValue(secretKey)
+	cfg.Section(profile).Key("aws_session_token").SetValue(sessionToken)
+	cfg.Section(profile).Key("aws_session_expiration").SetValue(expiration)
 
 	err = cfg.SaveTo(credFile)
 	if err != nil {

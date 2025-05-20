@@ -128,5 +128,12 @@ func main() {
 		fmt.Printf("Type: %T\n", *sessionResult.Credentials.Expiration)
 	*/
 
-	updateConfig(sessionArgs.credFile, sessionArgs.profile+"-session", *sessionResult.Credentials.AccessKeyId, *sessionResult.Credentials.SecretAccessKey, *sessionResult.Credentials.SessionToken)
+	updateConfig(
+		sessionArgs.credFile,
+		sessionArgs.profile+"-session",
+		*sessionResult.Credentials.AccessKeyId,
+		*sessionResult.Credentials.SecretAccessKey,
+		*sessionResult.Credentials.SessionToken,
+		sessionResult.Credentials.Expiration.UTC().Format("2006-01-02 15:04:05.000000-07:00"), // ISO 8601
+	)
 }
